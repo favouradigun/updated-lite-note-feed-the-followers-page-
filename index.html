@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lite Note</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #ffffff;
+        }
+        .sidebar {
+            width: 60px;
+            background-color: #ffffff;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            height: 100vh;
+        }
+        .sidebar-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #757575;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin-left: 60px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tabs {
+            margin-bottom: 20px;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        .tabs span {
+            margin-right: 20px;
+            color: #757575;
+            cursor: pointer;
+        }
+        .tabs span:first-child {
+            color: #000000;
+            font-weight: bold;
+        }
+        .search-bar {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-image {
+            height: 200px;
+            background-color: #e0e0e0;
+            background-size: cover;
+            background-position: center;
+        }
+        .card-image {
+       height: 200px;
+       background-size: cover;
+       background-position: center;
+        overflow: hidden;
+        }
+      .card-image img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-tag {
+            color: #2196F3;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-meta {
+            display: flex;
+            align-items: center;
+            color: #757575;
+            font-size: 12px;
+        }
+        .card-meta img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .behind{
+             background-color: #f5f5f5;
+            border-radius: 20px;
+            align-items: center;
+            padding: 10px;
+        }
+        .right-sidebar {
+            width: 360px;
+            padding: 20px;
+            background-color: #ffffff;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .follow-suggestion {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .follow-suggestion img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .first{
+            color: #ec4b10;
+        }
+        .follow-button {
+            background-color: #ffffff;
+            border: 1px solid #ff4500;
+            color: #ff4500;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: auto;
+            cursor: pointer;
+        }
+        .trendy-story {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .trendy-story img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .topic {
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        @media (max-width: 1024px) {
+            .right-sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-right: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 10px 0;
+            }
+            .sidebar-icon {
+                margin-bottom: 0;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 10px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-bar {
+                width: 100%;
+                margin-top: 10px;
+                margin-left: 70%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-icon"><i class="material-icons">account_circle</i></div>
+        <div class="sidebar-icon"><i class="material-icons">home</i></div>
+        <div class="sidebar-icon"><i class="material-icons">bookmark</i></div>
+        <div class="sidebar-icon"><i class="material-icons">list</i></div>
+        <div class="sidebar-icon"><i class="material-icons">edit</i></div>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <div class="logo">Lite Note</div>
+            <input type="text" placeholder="Search" class="search-bar">
+        </div>
+        
+        <div class="tabs">
+            <span>Recommended</span>
+            <span>Following</span>
+            <span>Challenges</span>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-image"></div>
+                <div class="card-content">
+                    <div class="card-tag">Technology</div>
+                    <div class="card-title">The Impact of Technology on the Workplace: How Technology is Changing</div>
+                    <div class="card-meta">
+                        <span>3 min read</span>
+                        <img src="img.jpg" alt="Author">
+                        <span>Tracey Wilson</span>
+                        <span>August 20, 2022</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image"> <img src="43.png" alt=""></div>
+                <div class="card-content">
+                    <div class="card-tag">Technology</div>
+                    <div class="card-title">The Impact of Gaming on the Workplace: How Technology is Changing</div>
+                    <div class="card-meta">
+                        <span>3 min read</span>
+                        <img src="img.jpg" alt="Author">
+                        <span>Jason Francisco</span>
+                        <span>August 20, 2022</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image"><img src="42.png" alt=""></div>
+                <div class="card-content">
+                    <div class="card-tag">Technology</div>
+                    <div class="card-title">The Future of AI in Healthcare</div>
+                    <div class="card-meta">
+                        <span>5 min read</span>
+                        <img src="img.jpg" alt="Author">
+                        <span>Sarah Johnson</span>
+                        <span>August 22, 2022</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image"><img src="44.png" alt=""></div>
+                <div class="card-content">
+                    <div class="card-tag">Business</div>
+                    <div class="card-title">Remote Work: The New Normal?</div>
+                    <div class="card-meta">
+                        <span>4 min read</span>
+                        <img src="img.jpg" alt="Author">
+                        <span>Michael Brown</span>
+                        <span>August 23, 2022</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image"><img src="40..jpg" alt=""></div>
+                <div class="card-content">
+                    <div class="card-tag">Productivity</div>
+                    <div class="card-title">5 Time Management Techniques for Busy Professionals</div>
+                    <div class="card-meta">
+                        <span>6 min read</span>
+                        <img src="img.jpg" alt="Author">
+                        <span>Emily Chen</span>
+                        <span>August 25, 2022</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image"></div>
+                <div class="card-content">
+                    <div class="card-tag">Mindfulness</div>
+                    <div class="card-title">The Benefits of Daily Meditation</div>
+                    <div class="card-meta">
+                        <span>4 min read</span>
+                        <img src="img.jpg" alt="Author">
+                        <span>David Lee</span>
+                        <span>August 26, 2022</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+    
+    <div class="right-sidebar">
+       <div class="behind">
+        <h3>Who to follow</h3>
+        <div class="follow-suggestion">
+            <img src="29.jpg" alt="Elon Jaman">
+            <div>
+                <div>Elon Jaman</div>
+                <div>Blogger Researcher Content Manager</div>
+            </div>
+            <button class="follow-button">Follow</button>
+        </div>
+        <div class="follow-suggestion">
+            <img src="30..png" alt="Dogecoin">
+            <div>
+                <div>Dogecoin</div>
+                <div>Writer , Dogecoin Expert</div>
+            </div>
+            <button class="follow-button">Follow</button>
+        </div>
+        <div class="first">Show more</div>
+    </div>
+
+
+        <h3>Trendy Stories</h3>
+        <div class="trendy-story">
+            <img src="img.jpg" alt="Trending in Colombia">
+            <div>
+                <div>Trending in Colombia</div>
+                <div>The pros and cons of the new iPhone - Tips and tricks</div>
+            </div>
+        </div>
+        <div class="trendy-story-image" style="background-image: url('img.jpg'); width: 100%; height: 150px; background-size: cover; background-position: center; margin-top: 10px; border-radius: 5px;"></div>
+        <div class="first">Show more</div>
+        
+        <h3>Recommended Topic</h3>
+        <div class="topics">
+            <span class="topic">Technology</span>
+            <span class="topic">Money</span>
+            <span class="topic">Business</span>
+            <span class="topic">Productivity</span>
+            <span class="topic">Art</span>
+            <span class="topic">Mindfulness</span>
+            <span class="topic">Fitness</span>
+            <span class="topic">Love</span>
+            <span class="topic">Gaming</span>
+        </div>
+    </div>
+</body>
+</html>
